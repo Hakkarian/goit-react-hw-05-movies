@@ -4,7 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import { Link, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import Loader from 'components/Loader';
 import { StyledList } from '../Cast/Cast.styled';
-import { StyledMain } from './MovieDetails.styled';
+import { StyledLink, StyledMain } from './MovieDetails.styled';
 
 
 const MovieDetails = ({movies}) => {
@@ -54,10 +54,10 @@ const MovieDetails = ({movies}) => {
   return (
     <>
       <StyledMain>
-        <Link to={location.state?.from.pathname}>Go Back</Link>
+        <StyledLink to={location.state?.from.pathname}>Go Back</StyledLink>
+        <img src={getPosterPath(movie?.poster_path)} alt={movie?.title} />
         <div>
-          <img src={getPosterPath(movie?.poster_path)} alt={movie?.title} />
-          <h1>{movie?.title}</h1>
+          <h1>{movie?.title} ({(movie?.release_date).slice(0, 4)})</h1>
           <p>{(movie?.vote_average * 10).toFixed(0)}%</p>
           <h2>Overview</h2>
           <p>{movie?.overview}</p>
@@ -101,6 +101,7 @@ MovieDetails.propTypes = {
   movie: PropTypes.shape({
     poster_path: PropTypes.string,
     title: PropTypes.string.isRequired,
+    release_date: PropTypes.string.isRequired,
     vote_average: PropTypes.number.isRequired,
     genres: PropTypes.string.isRequired,
     overview: PropTypes.string.isRequired

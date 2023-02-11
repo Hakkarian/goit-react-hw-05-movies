@@ -8,10 +8,12 @@ export const Container = styled.div`
 `;
 
 export const StyledHeader = styled.header`
+  margin-bottom: 30px;
   display: flex;
   align-items: center;
   height: ${({ theme }) => theme.spacing(13)}px;
   border-bottom: 1px solid black;
+  
 `;
 
 export const StyledLink = styled(NavLink)`
