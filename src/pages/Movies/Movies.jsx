@@ -1,0 +1,50 @@
+import { getMovies } from "api-service/api";
+import MoviesList from "components/MoviesList";
+import SearchMovies from "pages/SearchMovies";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+
+
+const Movies = () => {
+    const [movies, setMovies] = useState([]);
+    const [status, setStatus] = useState("idle");
+
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const query = searchParams.get("query");
+
+    useEffect(() => {
+        if (!query) {
+            return;
+        }
+
+        getMovies(query).then(response => {
+            if (response.length === 0) {
+                setStatus("rejected")
+                alert("An error occured while processing your request")
+                return;
+            }
+            setMovies([...response])
+        })
+        setStatus("fulfilled")
+
+    }, [query])
+
+    console.log(movies)
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        let query = e.target.elements.name.value;
+        setSearchParams({ query });
+        setMovies([])
+    };
+    
+    return <>
+        <SearchMovies onChange={(e) => handleSubmit(e.target.value)} />
+
+        {status === "rejected" && <div>An error occured while processing your request</div>}
+        <MoviesList movies={movies} />
+    </>
+}
+
+export default Movies;
