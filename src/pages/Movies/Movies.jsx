@@ -34,13 +34,13 @@ const Movies = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let query = e.target.elements.name.value;
+        let query = e.target.elements.query.value;
         setSearchParams({ query });
         setMovies([])
     };
     
     return <>
-        <SearchMovies onChange={(e) => handleSubmit(e.target.value)} />
+        <SearchMovies onSubmit={handleSubmit} />
 
         {status === "rejected" && <div>An error occured while processing your request</div>}
         <MoviesList movies={movies} />
