@@ -57,7 +57,7 @@ const MovieDetails = ({movies}) => {
         <StyledLink to={location.state?.from.pathname}>Go Back</StyledLink>
         <img src={getPosterPath(movie?.poster_path)} alt={movie?.title} />
         <div>
-          <h1>{movie?.title} ({(movie?.release_date).slice(0, 4)})</h1>
+          <h1>{movie?.title} ({movie?.release_date.slice(0, 4)})</h1>
           <p>{(movie?.vote_average * 10).toFixed(0)}%</p>
           <h2>Overview</h2>
           <p>{movie?.overview}</p>
