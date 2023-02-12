@@ -21,6 +21,7 @@ const Movies = () => {
         getMovies(query).then(response => {
             if (response.length === 0) {
                 setStatus("rejected")
+                setSearchParams({ query: ""})
                 alert("An error occured while processing your request")
                 return;
             }
@@ -35,8 +36,8 @@ const Movies = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         let query = e.target.elements.query.value;
-        setSearchParams({ query });
-        setMovies([])
+
+        setSearchParams({query: query})
     };
     
     return <>

@@ -11,6 +11,8 @@ const MovieDetails = ({movies}) => {
 
   const location = useLocation();
 
+  const back = location.state?.from ?? '/';
+
 
   const [movie, setMovie] = useState();
 
@@ -23,13 +25,6 @@ const MovieDetails = ({movies}) => {
 
   const navigate = useNavigate();
 
-  let locationToken = location.state?.from.pathname;
-
-  console.log(location.state)
-
-  if (location.state?.from.pathname !== "/") {
-    location.state.from.pathname = "/"
-  }
 
 
   useEffect(() => {
@@ -54,7 +49,7 @@ const MovieDetails = ({movies}) => {
   return (
     <>
       <StyledMain>
-        <StyledLink to={location.state?.from.pathname}>Go Back</StyledLink>
+        <StyledLink to={back}>Go Back</StyledLink>
         <img src={getPosterPath(movie?.poster_path)} alt={movie?.title} />
         <div>
           <h1>{movie?.title} ({movie?.release_date.slice(0, 4)})</h1>
@@ -72,12 +67,12 @@ const MovieDetails = ({movies}) => {
           <p>Additional information</p>
           <StyledList>
             <li>
-              <Link to="cast" state={{ from: location }}>
+              <Link to="cast" state={{ from: back }}>
                 Cast
               </Link>
             </li>
             <li>
-              <Link to="reviews" state={{ from: location }}>
+              <Link to="reviews" state={{ from: back }}>
                 Reviews
               </Link>
             </li>
